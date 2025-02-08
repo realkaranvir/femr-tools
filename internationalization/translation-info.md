@@ -1,47 +1,77 @@
-# fEMR Internationalization (i18n) Guide
+# 🌍 fEMR Internationalization (i18n) Guide
 
-## Table of Contents
+## 📖 Table of Contents
 
-1. [Language List](#language-list)
-2. [Adding a New Language](#adding-a-new-language)
-3. [Adding Text to the App](#adding-text-to-the-app)
+1. [🌎 Language List](#language-list)
+2. [💻 Using the Script](#using-the-script)
+3. [🌐 Adding a New Language](#adding-a-new-language)
+4. [📝 Adding Text to the Main fEMR Repo](#adding-text-to-the-main-femr-repo)
+
+---
 
 ## Language List
 
-1. English (en)
-2. Spanish (es)
-3. French (fr)
-4. Georgian (ka)
-5. Arabic (ar)
-6. Azerbaijani (az)
-7. Bulgarian (bg)
-8. Bengali (bn)
-9. Bosnian (bs)
-10. Czech (cs)
-11. Danish (da)
-12. German (de)
-13. Greek (el)
-14. Estonian (et)
-15. Persian (fa)
-16. Finnish (fi)
-17. Tagalog (fil)
-18. Hebrew (he)
-19. Hindi (hi)
-20. Croatian (hr)
-21. Hungarian (hu)
-22. Indonesian (id)
-23. Italian (it)
-24. Japanese (ja)
-25. Korean (ko)
-26. Polish (pl)
-27. Portuguese (pt)
-28. Russian (ru)
-29. Slovak (sk)
-30. Swedish (sv)
-31. Turkish (tr)
-32. Vietnamese (vi)
-33. Chinese (zh)
+| Language    | Code | Language           | Code  |
+| ----------- | ---- | ------------------ | ----- |
+| English     | `en` | Italian            | `it`  |
+| Spanish     | `es` | Japanese           | `ja`  |
+| French      | `fr` | Korean             | `ko`  |
+| Georgian    | `ka` | Polish             | `pl`  |
+| Arabic      | `ar` | Portuguese         | `pt`  |
+| Azerbaijani | `az` | Russian            | `ru`  |
+| Bulgarian   | `bg` | Slovak             | `sk`  |
+| Bengali     | `bn` | Swedish            | `sv`  |
+| Bosnian     | `bs` | Turkish            | `tr`  |
+| Czech       | `cs` | Vietnamese         | `vi`  |
+| Danish      | `da` | Chinese            | `zh`  |
+| German      | `de` | Tagalog (Filipino) | `fil` |
+| Greek       | `el` | Hebrew             | `he`  |
+| Estonian    | `et` | Hindi              | `hi`  |
+| Persian     | `fa` | Croatian           | `hr`  |
+| Finnish     | `fi` | Hungarian          | `hu`  |
+| Indonesian  | `id` | -                  | -     |
+
+---
+
+## Using the Script
+
+```bash
+# 1️⃣ Copy the language files into the directory
+cp /path/to/language-files .
+
+# 2️⃣ Add your label and text data to `translator.py`
+# Edit the `input_values` array inside `translator.py`
+
+# 3️⃣ Install dependencies
+pip install -r requirements.txt
+
+# 4️⃣ Run the script
+python3 translator.py
+
+# 5️⃣ Translations will populate the language files
+
+# 6️⃣ Replace the main repo’s language-files with the new ones
+mv language-files /path/to/femr-repo
+```
+
+---
 
 ## Adding a New Language
 
-## Adding Text to the App
+1. Add the new language’s code to the **Language List** in **translator.py**.
+2. Run the script to generate the translations.
+3. Verify the translations before adding them to the main repo.
+
+---
+
+## Adding Text to the Main fEMR Repo
+
+Within the file you added text to, you will need to call an update function within the script block to load the translations.
+Here is an example of that:
+
+---
+
+### Notes:
+
+- Ensure that all translations are accurate before pushing changes.
+- Maintain consistency with existing translation formats.
