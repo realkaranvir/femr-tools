@@ -4,6 +4,7 @@ import argostranslate.translate
 from googletrans import Translator
 import json
 
+
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # Define input values as a list of tuples (label, input_text)
@@ -15,6 +16,7 @@ input_values = [
 from_code = "en"
 languages = ["en", "es", "fr", "ka", "ar", "az", "bg", "bn", "bs", "cs", "da", "de", "el", "et", "fa", "fi", "tl", "he", "hi", "hr", "hu", "id", "it", "ja", "ko", "pl", "pt", "ru", "sk", "sv", "tr", "vi", "zh"]
 
+mode = "single" # single or multiple for single json file or multiple json files by language
 # Initialize Google Translator
 translator = Translator()
 
@@ -54,17 +56,34 @@ for language in languages:
         
         translations[lang_code][label] = translated_text
 
-    lang_file = f'language-files/{lang_code}.json'
-    try:
-        with open(lang_file, 'r+', encoding='utf-8') as file:
-            lang_data = json.load(file)
-    except FileNotFoundError:
-        lang_data = {}
-        
-    lang_data[lang_code].update(translations[lang_code])
 
-    with open(lang_file, 'w', encoding='utf-8') as file:
-        json.dump(lang_data, file, ensure_ascii=False, indent=4)
-        print(f"Translation for {lang_code} completed.")
+    if mode == "multiple":
+        lang_file = f'language-files/{lang_code}.json'
+        try:
+            with open(lang_file, 'r+', encoding='utf-8') as file:
+                lang_data = json.load(file)
+        except FileNotFoundError:
+            lang_data = {}
+            
+        lang_data[lang_code].update(translations[lang_code])
+
+        with open(lang_file, 'w', encoding='utf-8') as file:
+            json.dump(lang_data, file, ensure_ascii=False, indent=4)
+            print(f"Translation for {lang_code} completed.")
+
+if mode == "single":
+    with open("languages.json", "r", encoding="utf-8") as file:
+        existing_translations = json.load(file)
+
+    # Merge translations
+    for lang_code, translations in translations.items():
+        if lang_code in existing_translations:
+            existing_translations[lang_code].update(translations)
+        else:
+            existing_translations[lang_code] = translations
+
+    # Save the updated translations back to language.json
+    with open("language-files/languages.json", "w", encoding="utf-8") as file:
+        json.dump(existing_translations, file, ensure_ascii=False, indent=4)
         
 print("Translation completed. Check translated.txt")

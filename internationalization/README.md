@@ -48,9 +48,9 @@ pip install -r requirements.txt
 # 4️⃣ Run the script
 python3 translator.py
 
-# 5️⃣ Translations will populate the language files
+# Translations will populate the language files
 
-# 6️⃣ Replace the main repo’s language-files with the new ones
+# 5️⃣ Replace the main repo’s language-files with the new ones
 mv language-files /path/to/femr-repo
 ```
 

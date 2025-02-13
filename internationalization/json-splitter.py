@@ -1,6 +1,8 @@
 import json
 import os
 
+# If at some point you want to split the languages.json file into separate files for each language, you can use the following script.
+
 def split_languages(input_file):
     output_dir = "language-files"
     os.makedirs(output_dir, exist_ok=True)
