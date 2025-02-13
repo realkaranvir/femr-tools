@@ -69,6 +69,17 @@ mv language-files /path/to/femr-repo
 Within the file you added text to, you will need to call an update function within the script block to load the translations.
 Here is an example of that:
 
+```javascript
+function updateTextContent(elementId, value) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.textContent = value;
+  }
+}
+```
+
+You can also find a good example of how it's done in fEMR by looking at **index.scala.html** for triage
+
 ---
 
 ### Notes:
