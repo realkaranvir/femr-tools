@@ -1,11 +1,12 @@
-# 🌍 fEMR Internationalization (i18n) Guide
+# 🌍 fEMR Internationalization Guide
 
 ## 📖 Table of Contents
 
-1. [🌎 Language List](#language-list)
-2. [💻 Using the Script](#using-the-script)
-3. [🌐 Adding a New Language](#adding-a-new-language)
-4. [📝 Adding Text to the Main fEMR Repo](#adding-text-to-the-main-femr-repo)
+1. [Language List](#language-list)
+2. [Using the Script](#using-the-script)
+3. [Adding a New Language](#adding-a-new-language)
+4. [Adding Text to the Main fEMR Repo](#adding-text-to-the-main-femr-repo)
+5. [Splitting by Language](#splitting-by-language)
 
 ---
 
@@ -33,25 +34,30 @@
 
 ---
 
-## Using the Script
+## Using the Scripts
 
 ```bash
-# 1️⃣ Copy the language files into the directory
-cp /path/to/language-files .
+# 1️⃣ Copy the language file(s) into the directory
 
-# 2️⃣ Add your label and text data to `translator.py`
-# Edit the `input_values` array inside `translator.py`
+# 2️⃣ Add your label and text data to `translator.py` by editing the `input_values` array inside `translator.py`
 
-# 3️⃣ Install dependencies
+# 3️⃣ Create and activate a virtual environment (recommended)
+
+python -m venv venv
+source venv/bin/activate  # On macOS/Linux
+venv\Scripts\activate     # On Windows
+
+# 4️⃣ Install dependencies
+
 pip install -r requirements.txt
 
-# 4️⃣ Run the script
-python3 translator.py
+# 5️⃣ Run the translation script
 
-# Translations will populate the language files
+python translator.py
 
-# 5️⃣ Replace the main repo’s language-files with the new ones
-mv language-files /path/to/femr-repo
+# Translations will populate the language files folder
+
+# 6️⃣ Replace the main repo’s language file(s)
 ```
 
 ---
@@ -82,7 +88,23 @@ You can also find a good example of how it's done in fEMR by looking at **index.
 
 ---
 
-### Notes:
+### Splitting by Language
 
-- Ensure that all translations are accurate before pushing changes.
-- Maintain consistency with existing translation formats.
+By default, the script runs in single mode, which saves all translations in a single languages.json file. However, you can enable multiple mode to save translations into separate files, one per language.
+
+To use multiple mode, the script requires input files that are already split by language, or else it will create all new files for each language. In order to add on to existing translations, you can either:
+
+1. Provide your own pre-separated JSON files if the languages are already separated..
+2. Use json-splitter.py to split an existing languages.json file into multiple language-specific files.
+
+All output files will be saved in the output folder by default.
+
+Here is how to run the script:
+
+```bash
+# 1️⃣ Run the script to split languages.json
+
+python json-splitter.py
+
+# The split language files will be saved in the "output" folder
+```
